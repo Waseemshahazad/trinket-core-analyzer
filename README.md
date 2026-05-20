@@ -6,7 +6,7 @@
 
 ## Technical Overview
 
-**Trinket Core Structural Analyzer** is a precision-engineered C++ forensic tool designed for deep binary analysis of firmware dumps and embedded system artifacts. Specifically optimized for Qualcomm (SD665) chipset analysis, this utility employs advanced heuristic pattern matching to identify security-critical structures including Gatekeeper authentication hash patterns and secure element signatures.
+**Trinket Core Structural Analyzer** is a precision-engineered C++ forensic tool designed for deep binary analysis of firmware dumps and embedded system artifacts. Specifically optimized for Qualcomm SD665 firmware dumps, this utility identifies Gatekeeper hash patterns and secure element signatures using advanced heuristic pattern matching.
 
 ### Key Characteristics
 
@@ -22,11 +22,11 @@
 
 ### Structural Window Analysis
 
-The analyzer employs a **72-byte sliding window** mechanism to scan binary payloads for structural boundary markers and metadata signatures. This window size is calibrated to balance detection granularity with computational efficiency, allowing for precise identification of aligned data structures within memory layouts.
+The analyzer employs a **72-byte sliding window** mechanism to scan binary payloads for structural boundary markers and metadata signatures. This window size is calibrated to balance detection granularity with performance throughput, targeting typical cryptographic structure dimensions.
 
 ### Density Threshold Validation
 
-To eliminate false-positive alignments in null-padded sections and junk data regions, the analyzer implements a **50% entropy/density threshold check**. This statistical filter ensures only substantive data patterns are flagged for further analysis.
+To eliminate false-positive alignments in null-padded sections and junk data regions, the analyzer implements a **50% entropy/density threshold check**. This statistical filter ensures only substantive structural candidates are flagged for further inspection.
 
 #### Density Calculation Formula
 
@@ -62,25 +62,25 @@ The tool applies multi-stage pattern recognition:
 #### Standard Optimized Build
 
 ```bash
-g++ -O3 -std=c++17 -Wall -Wextra main.cpp -o TrinketAnalyzer
+g++ -O3 -std=c++17 -Wall -Wextra trinket-core-analyzer.cpp -o TrinketAnalyzer
 ```
 
 #### Aggressive Optimization (for large-scale scanning)
 
 ```bash
-g++ -O3 -std=c++17 -march=native -Wall -Wextra main.cpp -o TrinketAnalyzer
+g++ -O3 -std=c++17 -march=native -Wall -Wextra trinket-core-analyzer.cpp -o TrinketAnalyzer
 ```
 
 #### Windows Build (MinGW)
 
 ```bash
-x86_64-w64-mingw32-g++ -O3 -std=c++17 -static main.cpp -o TrinketAnalyzer.exe
+x86_64-w64-mingw32-g++ -O3 -std=c++17 -static trinket-core-analyzer.cpp -o TrinketAnalyzer.exe
 ```
 
 #### Debug Build (development/troubleshooting)
 
 ```bash
-g++ -g -std=c++17 -Wall -Wextra main.cpp -o TrinketAnalyzer
+g++ -g -std=c++17 -Wall -Wextra trinket-core-analyzer.cpp -o TrinketAnalyzer
 ```
 
 ### Verification
@@ -99,10 +99,10 @@ g++ -g -std=c++17 -Wall -Wextra main.cpp -o TrinketAnalyzer
 ```bash
 $ ./TrinketAnalyzer target_payload.bin
 
-╔════════════════════════════════════════════════════════════════════════╗
+╔════════════════════════════════════════════════════════════════════════════╗
 ║           Trinket Core Structural Analyzer v2.5                        ║
 ║                    Forensic Binary Analysis Tool                       ║
-╚════════════════════════════════════════════════════════════════════════╝
+╚════════════════════════════════════════════════════════════════════════════╝
 
 [*] Loading firmware artifact: target_payload.bin
 [*] File size: 8,388,608 bytes (8.0 MB)
@@ -124,14 +124,14 @@ $ ./TrinketAnalyzer target_payload.bin
 
 [*] Scan complete: 2 substantive structures mapped
 
-═══════════════════════════════════════════════════════════════════════════
+═════════════════════════════════════════════════════════════════════════════
 
 EXTRACTED STRUCTURE @ 0x00A4C200:
 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-═══════════════════════════════════════════════════════════════════════════
+═════════════════════════════════════════════════════════════════════════════
 
 Analysis Summary:
   • Total Bytes Scanned: 8,388,608
@@ -146,10 +146,10 @@ Analysis Summary:
 
 ```bash
 # Specify custom window size (advanced)
-./TrinketAnalyzer --window-size 64 target_payload.bin
+./TrinketAnalyzer --window-size XX target_payload.bin
 
 # Adjust density threshold (lower = more candidates)
-./TrinketAnalyzer --density-threshold 0.45 target_payload.bin
+./TrinketAnalyzer --density-threshold 0.XX target_payload.bin
 
 # Enable verbose logging
 ./TrinketAnalyzer --verbose target_payload.bin
@@ -193,7 +193,7 @@ Analysis Summary:
 
 ### Authorized Use Only
 
-This tool is provided for educational purposes and authorized forensic research. Use of this software against systems without explicit written authorization violates applicable laws in most jurisdictions.
+This tool is provided for educational purposes and authorized forensic research. Use of this software against systems without explicit written authorization violates applicable laws in most jurisdictions. Users assume full responsibility for ensuring compliance with local, state, and federal regulations.
 
 ### Reporting Security Issues
 
@@ -203,15 +203,23 @@ If you discover vulnerabilities or security concerns related to this tool, pleas
 
 ## License
 
-**MIT License**
+**GNU General Public License v3.0 (GPL-3.0)**
 
 Copyright (c) 2025 Waseem Shahazad
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
-**THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.**
+You should have received a copy of the GNU General Public License along with this program. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).
+
+**Key GPL-3.0 Principles:**
+- **Freedom to Use**: You can run the program for any purpose
+- **Freedom to Study**: You can examine the source code and understand how it works
+- **Freedom to Modify**: You can modify the code for your needs
+- **Freedom to Distribute**: You can share copies with others under the same license terms
+
+For full license text, see the `LICENSE` file in the repository.
 
 ---
 
@@ -231,6 +239,7 @@ Contributions from the security research community are welcome. Please ensure:
 - All changes maintain backward compatibility
 - Analysis algorithms remain deterministic and reproducible
 - Security implications are documented
+- GPL-3.0 license headers are included in new source files
 
 ---
 
@@ -239,10 +248,10 @@ Contributions from the security research community are welcome. Please ensure:
 For inquiries regarding this forensic utility, security research applications, or professional consultation:
 
 - **Repository Issues**: GitHub Issues tracker for technical discussions
--
+- **License Questions**: Refer to [GNU GPL-3.0 Official Documentation](https://www.gnu.org/licenses/gpl-3.0.html)
 
 ---
 
 **Trinket Core Structural Analyzer** — *Precision Forensic Binary Analysis for Modern Security Research*
 
-*Version 2.5 | Last Updated: May 2025*
+*Version 2.5 | Licensed under GNU General Public License v3.0 | Last Updated: May 2025*
