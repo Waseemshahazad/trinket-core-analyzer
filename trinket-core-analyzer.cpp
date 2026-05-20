@@ -1,17 +1,39 @@
-﻿#include <iostream>
+/*
+ * Trinket Core Structural Analyzer (v2.5)
+ * A high-performance C++ forensic tool for deep binary analysis of firmware dumps
+ * 
+ * Copyright (C) 2025 Waseem Shahazad
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * 
+ * Repository: https://github.com/Waseemshahazad/trinket-core-analyzer
+ * License: GNU General Public License v3.0 (GPL-3.0)
+ * 
+ * Description:
+ *   High-performance forensic utility for binary structure analysis and metadata extraction.
+ *   Specialized in identifying Gatekeeper hash patterns and secure element signatures using
+ *   advanced heuristic pattern matching with 72-byte sliding window analysis and 50% density
+ *   threshold validation.
+ */
+
+#include <iostream>
 #include <fstream>
 #include <vector>
 #include <iomanip>
 #include <string>
 #include <algorithm>
 #include <memory>
-
-/**
- * @project: Trinket Core Structural Analyzer (v2.5)
- * @repository: trinket-core-analyzer
- * @author: Waseem Shahzad
- * @description: High-performance forensic utility to parse and map binary structure boundaries.
- */
 
 using namespace std;
 
@@ -125,6 +147,8 @@ int main() {
 
     cout << BOLD << CYAN << "==========================================================" << RESET << endl;
     cout << BOLD << CYAN << "          TRINKET CORE STRUCTURAL ANALYZER (v2.5)         " << RESET << endl;
+    cout << BOLD << CYAN << "==========================================================" << RESET << endl;
+    cout << BOLD << CYAN << "Licensed under GNU General Public License v3.0 (GPL-3.0)  " << RESET << endl;
     cout << BOLD << CYAN << "==========================================================" << RESET << endl;
 
     cout << "\n" << YELLOW << "[INPUT REQUEST]" << RESET << " Drag and drop your target binary file here and press Enter:" << endl;
