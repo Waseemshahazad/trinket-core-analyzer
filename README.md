@@ -239,8 +239,7 @@ Contributions from the security research community are welcome. Please ensure:
 For inquiries regarding this forensic utility, security research applications, or professional consultation:
 
 - **Repository Issues**: GitHub Issues tracker for technical discussions
-- **Email**: [Professional inquiry contact]
-- **LinkedIn**: Connect for professional networking
+-
 
 ---
 
